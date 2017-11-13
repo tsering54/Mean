@@ -1,0 +1,19 @@
+<div id="container">
+    <h3>{{title}}</h3>
+    <h3>Initial Power Level: </h3>
+    <input type="number" max="100" min="0" [(ngModel)]="power">
+    <button>Calculate Powers</button>
+
+    <img src="../../assets/goku.jpg" alt="">
+
+    <div id="main">
+        <power-human [power] = "power"></power-human>
+        <power-saiyan [power] = "power"></power-saiyan>
+        <power-supersaiyan [power] = "power"></power-supersaiyan>
+        <power-supersaiyan-2 [power] = "power"></power-supersaiyan-2>
+        <power-supersaiyan-3 [power] = "power"></power-supersaiyan-3>
+        <power-supersaiyan-4 [power] = "power"></power-supersaiyan-4>
+    </div>
+
+</div>
+

@@ -1,0 +1,17 @@
+<section>
+  <div id="container">
+    {{quote|json}}
+    <h3>Add a Quote</h3>
+    <form (submit)="onSubmit(formData)" #formData="ngForm">
+      <textarea [(ngModel)]="quote.content" required minLength="8" #content="ngModel" name="content" id="" cols="30" rows="10"></textarea>  <br>
+      Author: <input [(ngModel)]="quote.author" #author="ngModel" required minLength="2" type="text" name="author">
+      <input type="submit" [disabled]="!formData.valid" value="Add Quote">
+    </form>
+  </div>
+
+  <div>
+    <app-quotes [quotes]="quotes"></app-quotes>
+  </div>
+</section>
+
+

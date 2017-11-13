@@ -1,0 +1,18 @@
+<h3>Edit Product</h3>
+<form (submit)="update()" #formData="ngForm">
+    Title <input type="text" 
+    [(ngModel)]="editProduct.title" 
+    required 
+    minLength="4" 
+    #title="ngModel"
+    name="title">
+    <div *ngIf="!title.valid" value="product.title">Title is required</div>
+
+    Price <input type="number" 
+    [(ngModel)]="editProduct.price" 
+    required 
+    #price="ngModel"
+    name="price">
+    <div *ngIf="!price.valid" value="editProduct.price">Price is required</div>
+    <input type="submit" value="UPDATE">
+</form>

@@ -1,0 +1,27 @@
+<h3>Create a new Product</h3>
+<form (submit)="onSubmit(fornData)" #formData="ngForm">
+  Title <input type="text" 
+  [(ngModel)]="newProduct.title" 
+  required 
+  minLength="4" 
+  #title="ngModel"
+  name="title">
+  <div *ngIf="!title.valid">Title is required</div>
+
+  Price <input type="number" 
+  [(ngModel)]="newProduct.price" 
+  required 
+  #price="ngModel"
+  name="price">
+  <div *ngIf="!price.valid">Price is required</div>
+
+  Image url: <input type="text" 
+  [(ngModel)]="newProduct.imgUrl" 
+  required 
+  #imgUrl="ngModel"
+  name="imgUrl">
+  <div *ngIf="!imgUrl.valid">Image url is required</div>
+  <button type="submit" [disabled]="!formData.valid">CREATE</button>
+</form>
+
+

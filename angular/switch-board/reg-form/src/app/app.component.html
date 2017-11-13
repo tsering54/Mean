@@ -1,0 +1,90 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div id="header">
+  <h2>Registration</h2>
+  {{result}}  
+</div>
+<div id="container">
+  <form (submit) = "onSubmit()" #formData="ngForm">
+    *First Name: <input type="text" 
+    name="firstName" 
+    [(ngModel)] = "user.firstName" 
+    required 
+    #firstName='ngModel'>
+    <div *ngIf="!firstName.valid">First Name is required</div>    
+    <br>
+
+    *Last Name: <input type="text" 
+    name="lastName" 
+    [(ngModel)] = "user.lastName" 
+    required 
+    #lastName="ngModel">
+    <div *ngIf="!lastName.valid">Last Name is required</div>
+    <br>
+   
+    *Email: <input type="text"
+     name="email" 
+     [(ngModel)] = "user.email" 
+     required  
+     minlength="4" 
+     maxlength="24" 
+     #email="ngModel">
+     <div *ngIf="!email.valid">Email must be valid</div>
+     <br>
+   
+     *Password: <input type="text" 
+     name="password" 
+     [(ngModel)] = "user.password" 
+     required 
+     minlength="16" 
+     #password = "ngModel">
+     <div *ngIf="!password.valid">Password must be atleast 16 characters long</div>
+     <br>
+
+    *Password Confirmation: <input type="text" 
+    name="pwConfirm" 
+    [(ngModel)] = "user.pwConfirm" 
+    #pwConfirm = "ngModel">
+    <div *ngIf="!pwConfirm.valid">Password Confirmation must match password</div>
+    <br>
+
+    *Street Address: <input type="text" 
+    name="streetAdd" 
+    [(ngModel)] = "user.streetAd"
+    #streetAdd = "ngModel">
+    <div *ngIf="!streetAdd.valid">Address is required</div>
+    <br>
+
+    Unit/Apt #: <input type="text" 
+    name="apt" 
+    [(ngModel)] = "user.apt"
+    #apt = "ngModel"><br>
+
+    *City: <input type="text" 
+    name="city" 
+    [(ngModel)] = "user.city"
+    #city = "ngModel">
+    <div *ngIf="!city.valid">City is required</div>
+    <br>
+
+    *State: <select name="state" [(ngModel)] = "user.state">
+      <option value="alaska">Alaska</option>
+      <option value="california">California</option>
+      <option value="washington">Washington</option>
+    </select><br>
+
+    *I'm feeling lucky: <input type="radio" 
+    name="feel" 
+    [(ngModel)] = "user.feel"
+    require
+    #feel = "ngModel"
+    value="yes">Yes 
+    <input type="radio" 
+    name="feel" 
+    require
+    value="no">No
+    <div *ngIf="!feel.valid">Choosing how you feel is required</div>
+
+    <input *ngIf = "!formData.valid" type="submit" value="Register">
+
+  </form>
+</div>
