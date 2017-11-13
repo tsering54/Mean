@@ -1,0 +1,81 @@
+> db.students.find()
+{ "_id" : ObjectId("59d1d46befc99492a550c352"), "name" : "Harry Potter", "home_state" : "california", "lucky_number" : 1, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d49befc99492a550c353"), "name" : "Hermione Granger", "home_state" : "california", "lucky_number" : 2, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d4ddefc99492a550c354"), "name" : "Ron Weasley", "home_state" : "Washington", "lucky_number" : 3, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d509efc99492a550c355"), "name" : "Ginny Weasley", "home_state" : "Washington", "lucky_number" : 4, "birthday" : { "month" : 7, "day" : 31, "year" : 1984 } }
+{ "_id" : ObjectId("59d1d530efc99492a550c356"), "name" : "Cho Chang", "home_state" : "Washington", "lucky_number" : 5, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+
+> db.students.find({$or: [{home_state:"California"}, {home_state:"Washington"}]})
+{ "_id" : ObjectId("59d1d4ddefc99492a550c354"), "name" : "Ron Weasley", "home_state" : "Washington", "lucky_number" : 3, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d509efc99492a550c355"), "name" : "Ginny Weasley", "home_state" : "Washington", "lucky_number" : 4, "birthday" : { "month" : 7, "day" : 31, "year" : 1984 } }
+{ "_id" : ObjectId("59d1d530efc99492a550c356"), "name" : "Cho Chang", "home_state" : "Washington", "lucky_number" : 5, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+
+
+> db.students.find({lucky_number:{$gt:3}})
+{ "_id" : ObjectId("59d1d509efc99492a550c355"), "name" : "Ginny Weasley", "home_state" : "Washington", "lucky_number" : 4, "birthday" : { "month" : 7, "day" : 31, "year" : 1984 } }
+{ "_id" : ObjectId("59d1d530efc99492a550c356"), "name" : "Cho Chang", "home_state" : "Washington", "lucky_number" : 5, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+
+
+> db.students.find({lucky_number:{$lte:10}})
+{ "_id" : ObjectId("59d1d46befc99492a550c352"), "name" : "Harry Potter", "home_state" : "california", "lucky_number" : 1, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d49befc99492a550c353"), "name" : "Hermione Granger", "home_state" : "california", "lucky_number" : 2, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d4ddefc99492a550c354"), "name" : "Ron Weasley", "home_state" : "Washington", "lucky_number" : 3, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d509efc99492a550c355"), "name" : "Ginny Weasley", "home_state" : "Washington", "lucky_number" : 4, "birthday" : { "month" : 7, "day" : 31, "year" : 1984 } }
+{ "_id" : ObjectId("59d1d530efc99492a550c356"), "name" : "Cho Chang", "home_state" : "Washington", "lucky_number" : 5, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+
+
+> db.students.find({$and:[{lucky_number:{$lte:9}}, {lucky_number:{$gte:1}}]})
+{ "_id" : ObjectId("59d1d46befc99492a550c352"), "name" : "Harry Potter", "home_state" : "california", "lucky_number" : 1, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d49befc99492a550c353"), "name" : "Hermione Granger", "home_state" : "california", "lucky_number" : 2, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d4ddefc99492a550c354"), "name" : "Ron Weasley", "home_state" : "Washington", "lucky_number" : 3, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+{ "_id" : ObjectId("59d1d509efc99492a550c355"), "name" : "Ginny Weasley", "home_state" : "Washington", "lucky_number" : 4, "birthday" : { "month" : 7, "day" : 31, "year" : 1984 } }
+{ "_id" : ObjectId("59d1d530efc99492a550c356"), "name" : "Cho Chang", "home_state" : "Washington", "lucky_number" : 5, "birthday" : { "month" : 7, "day" : 31, "year" : 1980 } }
+
+
+> db.students.update({}, {$set:{"interests":['coding', 'brunch', 'Mongodb']}}, {multi:true})
+WriteResult({ "nMatched" : 5, "nUpserted" : 0, "nModified" : 5 })
+
+> db.students.update({name:"Harry Potter"}, {$push: {interests: {$each: ['fighting', 'Voldemort']}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Hermione Granger"}, {$push: {interests: {$each: ['reading', 'Potions']}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Ron Weasley"}, {$push: {interests: {$each: ['eating', 'food']}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Ginny Weasley"}, {$push: {interests: {$each: ['pets', 'cats']}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Cho Chang"}, {$push: {interests: {$each: ['flying','Quidditch']}}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Harry Potter"}, {$push:{interests:"taxes"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({name:"Harry Potter"}, {$pull:{interests:"taxes"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.remove({$or: [{home_state: "California"}, {home_state: "Wasington"}]})
+WriteResult({ "nRemoved" : 0 })
+
+> db.students.remove({name:"Cho Chang"})
+WriteResult({ "nRemoved" : 1 })
+
+> db.students.remove({lucky_number:{$gt:5}}, {justOne:true})
+WriteResult({ "nRemoved" : 0 })
+
+> db.students.update({}, {$set:{"number_of_belts":0}}, {multi:true})
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 4 })
+
+> db.students.update({home_state:"Washington"}, {$inc:{number_of_belts:1}}, {multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+
+> db.students.update({}, {$rename:{"number_of_belts":"belts_earned"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.students.update({}, {$unset:{lucky_number:""}}, {multi:true})
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 4 })
+
+> db.students.update({}, {$currentDate:{update_on:true}}, {multi:true})
+WriteResult({ "nMatched" : 4, "nUpserted" : 0, "nModified" : 4 })

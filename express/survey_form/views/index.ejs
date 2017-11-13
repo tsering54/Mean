@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>dojo survey</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script type ="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type ="text/javascript">
+            $(document). ready(function (){
+                // this triggers the connection event in our server!
+                var socket  = io.connect();
+
+                $('#survey_form').submit(function(e) {
+                    e.preventDefault();
+                    socket.emit("posting_form", {
+                        name: $('#name').val(),
+                        location: $('#location').val(),
+                        language: $('#language').val(),
+                        comment: $('#comment').val()
+                    });
+                });
+                // we'll write all the socket stuff after the above line!
+                socket.on('updated_message', function (data){
+                    $('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+                });
+                socket.on('random_number', function (data){
+                    $('#number').html("Your lucky number emitted by the server is : " + JSON.stringify(data.response));
+                });                    
+            })
+        </script>
+    </head>
+    <body>
+        <div id="message"></div>
+        <div id="number"></div>
+        <form action="" id="survey_form">
+            Your Name: <input type="text" name="name"><br>
+            Dojo Location:
+            <select class="" name="location">
+                <option value="San Jose">san jose</option>
+                <option value="San Francisco">san francisco</option>
+            </select> <br>
+            Favorite Language:
+            <select class="" name="language">
+                <option value="Python">python</option>
+                <option value="JavaScript">javascript</option>
+            </select> <br>
+            Comment (optional): <br>
+            <textarea name="comment" rows="10" cols="50"></textarea><br>
+            <input type="submit" value="submit">
+        </form>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mongoose</title>
+</head>
+<body>
+    <h3>Cats</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Color</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (i in cats){ %>
+                <tr>
+                    <td><a href="/cats/<%= cats[i].id %>"><%= cats[i].name %></a></td>
+                    <td><%= cats[i].color %></td>
+                    <td><a href="/cats/edit/<%= cats[i].id %>"><button> edit</buton></a></td>
+                    <td>
+                        <form action="/cats/destroy/<%= cats[i].id %>" method="post">
+                            <input type="submit" value="delete">
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+        
+    </table>
+    <a href="/cats/new"><button>Add a new cat</button></a>
+
+    
+</body>
+</html>
